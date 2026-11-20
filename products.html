@@ -17,10 +17,14 @@
 <body>
   <div id="header"></div>
   <main class="catalog">
+    <div class="sheet-overlay" id="sheet-overlay" aria-hidden="true"></div>
     <aside class="filters" id="filters">
       <div class="filters__head">
         <h3 class="filters__heading">Filters</h3>
         <img class="filters__icon" src="assets/icons/filters.svg" alt="">
+        <button type="button" class="filters__close" id="filter-close" aria-label="Close filters">
+          <img src="assets/icons/close.svg" alt="Close">
+        </button>
       </div>
       <div class="hr"></div>
       <div class="filters__cats" id="filter-cats"></div>
@@ -47,6 +51,9 @@
     <div class="catalog__body">
       <div class="catalog__head">
         <h1 class="catalog__title t-h2" id="catalog-title">All products</h1>
+        <button type="button" class="filter-toggle" id="filter-toggle" aria-label="Open filters" aria-expanded="false">
+          <img src="assets/icons/filter-btn.svg" alt="">
+        </button>
       </div>
       <div class="products-row products-row--grid" id="grid"></div>
     </div>

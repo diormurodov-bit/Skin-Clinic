@@ -12,4 +12,3 @@
 - `login.html` / `register.html` — авторизация и регистрация
 - `profile.html` — личный кабинет и выход
 - `css/style.css`, `js/`, `assets/`, `robots.txt`, `sitemap.xml`, `manifest.json`, `humans.txt`, `rd.txt`, `package.json`
-# Skin-Clinic

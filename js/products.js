@@ -16,7 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.getElementById('reset-filter');
   const rangeBox = document.getElementById('range');
   const priceToggle = document.getElementById('price-toggle');
+  const filterToggle = document.getElementById('filter-toggle');
+  const filterClose = document.getElementById('filter-close');
+  const sheetOverlay = document.getElementById('sheet-overlay');
   let categories = [...FALLBACK_CATEGORIES];
+
+  function setSheetOpen(open) {
+    document.body.classList.toggle('sheet-open', open);
+    if (filterToggle) filterToggle.setAttribute('aria-expanded', String(open));
+  }
+  if (filterToggle) filterToggle.addEventListener('click', () => setSheetOpen(true));
+  if (filterClose) filterClose.addEventListener('click', () => setSheetOpen(false));
+  if (sheetOverlay) sheetOverlay.addEventListener('click', () => setSheetOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) setSheetOpen(false);
+  });
 
   function drawRange() {
     const a = Number(minInput.value);
@@ -106,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.max < 100) q.set('maxPrice', state.max);
     history.replaceState(null, '', 'products.html' + (q.toString() ? '?' + q : ''));
     updateTitle();
+    setSheetOpen(false);
     load();
   });
 
@@ -119,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     drawCategories();
     drawRange();
     updateTitle();
+    setSheetOpen(false);
     load();
   });
 
