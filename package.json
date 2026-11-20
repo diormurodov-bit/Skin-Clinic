@@ -1,0 +1,8 @@
+{
+  "name": "skin-clinic-static",
+  "version": "1.0.0",
+  "description": "Standalone HTML/CSS/JS Skin-Clinic storefront powered by WEPRO Sandbox Shop API",
+  "scripts": {
+    "start": "npx serve -l 3000 ."
+  }
+}

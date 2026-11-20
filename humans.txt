@@ -1,0 +1,6 @@
+/* TEAM */
+Project: Skin—Clinic Diploma Project 2026
+API: WEPRO Sandbox Shop API v1.0 (https://api.wepro.uz/sandbox-shop)
+
+/* STACK */
+HTML5, CSS3, Vanilla ES6+ JavaScript, WebP Logo, SF Pro Display

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Skin—Clinic</title>
+  <meta name="description" content="Skin—Clinic: premium organic skincare, cleansers, toners, creams, serums and lotions.">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+  <main class="catalog">
+    <aside class="filters" id="filters">
+      <div class="filters__head">
+        <h3 class="filters__heading">Filters</h3>
+        <img class="filters__icon" src="assets/icons/filters.svg" alt="">
+      </div>
+      <div class="hr"></div>
+      <div class="filters__cats" id="filter-cats"></div>
+      <div class="hr"></div>
+      <div class="filters__price">
+        <button type="button" class="filters__price-head" id="price-toggle" aria-expanded="true">
+          <h3 class="filters__heading">Price</h3>
+          <img src="assets/icons/chevron.svg" alt="">
+        </button>
+        <div class="range" id="range">
+          <div class="range__track"></div>
+          <div class="range__fill" id="range-fill"></div>
+          <input type="range" id="price-min" min="0" max="100" step="1" value="0" aria-label="Minimum price">
+          <input type="range" id="price-max" min="0" max="100" step="1" value="100" aria-label="Maximum price">
+          <div class="range__labels">
+            <span id="label-min">$0</span>
+            <span id="label-max">$100</span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn-pill btn-pill--black filters__apply" id="apply-filter">Apply Filter</button>
+      <button type="button" class="filters__reset" id="reset-filter" hidden>Reset filters</button>
+    </aside>
+    <div class="catalog__body">
+      <div class="catalog__head">
+        <h1 class="catalog__title t-h2" id="catalog-title">All products</h1>
+      </div>
+      <div class="products-row products-row--grid" id="grid"></div>
+    </div>
+  </main>
+  <div id="footer"></div>
+  <script src="js/api.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>
