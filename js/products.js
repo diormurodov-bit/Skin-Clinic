@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
+  const initialMin = Math.max(0, Math.min(99, Number(params.get('minPrice') || 0)));
+  const initialMax = Math.max(initialMin + 1, Math.min(100, Number(params.get('maxPrice') || 100)));
   const state = {
     category: params.get('category') || '',
-    min: Math.max(0, Math.min(99, Number(params.get('minPrice') || 0))),
-    max: Math.max(1, Math.min(100, Number(params.get('maxPrice') || 100))),
+    min: initialMin,
+    max: initialMax,
   };
+
   const grid = document.getElementById('grid');
+  const errorBox = document.getElementById('catalog-error');
   const title = document.getElementById('catalog-title');
   const catsBox = document.getElementById('filter-cats');
   const minInput = document.getElementById('price-min');
@@ -19,12 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterToggle = document.getElementById('filter-toggle');
   const filterClose = document.getElementById('filter-close');
   const sheetOverlay = document.getElementById('sheet-overlay');
+
   let categories = [...FALLBACK_CATEGORIES];
 
   function setSheetOpen(open) {
     document.body.classList.toggle('sheet-open', open);
     if (filterToggle) filterToggle.setAttribute('aria-expanded', String(open));
   }
+
   if (filterToggle) filterToggle.addEventListener('click', () => setSheetOpen(true));
   if (filterClose) filterClose.addEventListener('click', () => setSheetOpen(false));
   if (sheetOverlay) sheetOverlay.addEventListener('click', () => setSheetOpen(false));
@@ -45,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   minInput.value = state.min;
-  maxInput.value = Math.max(state.max, state.min + 1);
-
+  maxInput.value = state.max;
   minInput.addEventListener('input', () => {
     if (Number(minInput.value) >= Number(maxInput.value)) minInput.value = Number(maxInput.value) - 1;
     drawRange();
@@ -96,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function load() {
+    if (errorBox) errorBox.textContent = '';
+    grid.replaceChildren(...Array.from({ length: 6 }, () => skeletonCard()));
     const q = { limit: 50 };
     if (state.category) q.category = state.category;
     if (state.min > 0) q.minPrice = state.min;
@@ -104,7 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await api.products(q);
       const products = data.products || [];
       grid.replaceChildren(...(products.length ? products.map(productCard) : [h('p', { class: 'catalog__empty' }, 'No products match these filters')]));
-    } catch {
+    } catch (err) {
+      if (errorBox) errorBox.textContent = (err && err.message) || 'Failed to load products';
       const fallback = filterLocalProducts();
       grid.replaceChildren(...(fallback.length ? fallback.map(productCard) : [h('p', { class: 'catalog__empty' }, 'No products match these filters')]));
     }
@@ -137,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setSheetOpen(false);
     load();
   });
+
+  drawRange();
+  grid.replaceChildren(...Array.from({ length: 6 }, () => skeletonCard()));
 
   getCategories().then((list) => {
     categories = list && list.length ? list : FALLBACK_CATEGORIES;

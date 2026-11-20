@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formError = document.getElementById('comment-error');
   const hint = document.getElementById('comment-hint');
   const counter = document.getElementById('comment-counter');
+  const commentSubmit = document.getElementById('comment-submit');
   let qty = 1;
   let isInBag = false;
   let isBusy = false;
@@ -102,7 +103,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const res = await api.product(id);
       if (res && res.product) renderProduct(res.product);
-    } catch {}
+    } catch (err) {
+      showNotice((err && err.message) || 'Failed to load product');
+    }
   }
 
   await load();
@@ -143,14 +146,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.reset();
     counter.textContent = '0/300';
     hint.textContent = 'Enter at least 2 characters';
+    if (commentSubmit) commentSubmit.disabled = true;
     modal.hidden = false;
     form.text.focus();
   });
 
   form.text.addEventListener('input', () => {
     const len = form.text.value.length;
+    const ready = form.text.value.trim().length >= 2;
     counter.textContent = len + '/300';
-    hint.textContent = form.text.value.trim().length < 2 ? 'Enter at least 2 characters' : 'Ready to send';
+    hint.textContent = ready ? 'Ready to send' : 'Enter at least 2 characters';
+    if (commentSubmit) commentSubmit.disabled = !ready;
+    if (ready) formError.textContent = '';
   });
 
   modal.addEventListener('click', (e) => { if (e.target === modal) modal.hidden = true; });
@@ -174,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
       formError.textContent = err.message;
     } finally {
-      btn.disabled = false;
+      btn.disabled = form.text.value.trim().length < 2;
     }
   });
 });

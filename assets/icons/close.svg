@@ -1,10 +1,10 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="close">
-<mask id="mask0_0_91" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-<rect id="Bounding box" width="24" height="24" fill="#D9D9D9"/>
+<mask id="mask0_0_134" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
+<rect id="Bounding box" width="16" height="16" fill="#D9D9D9"/>
 </mask>
-<g mask="url(#mask0_0_91)">
-<path id="close_2" d="M6.40043 18.6538L5.34668 17.6L10.9467 12L5.34668 6.4L6.40043 5.34625L12.0004 10.9463L17.6004 5.34625L18.6542 6.4L13.0542 12L18.6542 17.6L17.6004 18.6538L12.0004 13.0538L6.40043 18.6538Z" fill="black"/>
+<g mask="url(#mask0_0_134)">
+<path id="close_2" d="M4.26695 12.4358L3.56445 11.7333L7.29779 8L3.56445 4.26667L4.26695 3.56417L8.00029 7.2975L11.7336 3.56417L12.4361 4.26667L8.70279 8L12.4361 11.7333L11.7336 12.4358L8.00029 8.7025L4.26695 12.4358Z" fill="black"/>
 </g>
 </g>
 </svg>

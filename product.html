@@ -4,11 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product — Skin—Clinic</title>
-  <meta name="description" content="Skin—Clinic: premium organic skincare, cleansers, toners, creams, serums and lotions.">
+  <meta name="description" content="Skin—Clinic: premium organic skincare, cleansers, toners, creams, serums and lotions crafted for healthy, radiant skin.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Product — Skin—Clinic">
+  <meta property="og:description" content="Skin—Clinic: premium organic skincare, cleansers, toners, creams, serums and lotions crafted for healthy, radiant skin.">
+  <meta property="og:image" content="assets/icons/footer-logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Skin Clinic">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.wepro.uz" crossorigin>
+  <link rel="dns-prefetch" href="https://api.wepro.uz">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="apple-touch-icon" href="assets/img/favicon.png">
@@ -16,7 +26,7 @@
 </head>
 <body>
   <div id="header"></div>
-  <main class="pdp container" id="pdp">
+  <main class="container pdp">
     <p class="pdp__msg" id="pdp-msg" hidden></p>
     <div class="pdp__top">
       <div class="pdp__img" id="pdp-img"></div>
@@ -49,6 +59,7 @@
     <form class="modal__card modal__card--comment" id="comment-form">
       <div>
         <h2 class="form-title t-h2" id="comment-title">Leave a comment</h2>
+        <p class="form-error" id="comment-error" style="margin: 12px 0 0;"></p>
         <label class="field">
           <span class="field__label">Text</span>
           <textarea class="field__input" name="text" placeholder="Your comment" minlength="2" maxlength="300" required></textarea>
@@ -57,8 +68,7 @@
           <span id="comment-hint">Enter at least 2 characters</span>
           <span id="comment-counter">0/300</span>
         </div>
-        <p class="form-error" id="comment-error"></p>
-        <button class="btn-form" type="submit">Send</button>
+        <button class="btn-form" type="submit" id="comment-submit" disabled>Send</button>
       </div>
     </form>
   </div>

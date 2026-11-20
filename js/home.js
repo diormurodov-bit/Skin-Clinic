@@ -12,24 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
     ));
   }
 
-  best.replaceChildren(...FALLBACK_PRODUCTS.slice(0, 4).map(productCard));
+  best.replaceChildren(...Array.from({ length: 4 }, () => skeletonCard()));
   renderCategories(FALLBACK_CATEGORIES);
-  const featuredFallback = Array.from({ length: 12 }, (_, i) => FALLBACK_PRODUCTS[i % 4]);
-  featured.replaceChildren(...featuredFallback.map(productCard));
+  featured.replaceChildren(...Array.from({ length: 4 }, () => skeletonCard()));
 
   api.bestsellers(4).then((d) => {
-    if (d && d.products && d.products.length) {
-      best.replaceChildren(...d.products.slice(0, 4).map(productCard));
-    }
-  }).catch(() => {});
+    const list = (d && d.products && d.products.length) ? d.products.slice(0, 4) : FALLBACK_PRODUCTS.slice(0, 4);
+    best.replaceChildren(...list.map(productCard));
+  }).catch(() => {
+    best.replaceChildren(...FALLBACK_PRODUCTS.slice(0, 4).map(productCard));
+  });
 
   getCategories().then((list) => {
     renderCategories(list);
   });
 
+  const featuredFallback = Array.from({ length: 12 }, (_, i) => FALLBACK_PRODUCTS[i % 4]);
   api.newest(12).then((d) => {
-    if (d && d.products && d.products.length) {
-      featured.replaceChildren(...d.products.slice(0, 12).map(productCard));
-    }
-  }).catch(() => {});
+    const list = (d && d.products && d.products.length) ? d.products.slice(0, 12) : featuredFallback;
+    featured.replaceChildren(...list.map(productCard));
+  }).catch(() => {
+    featured.replaceChildren(...featuredFallback.map(productCard));
+  });
 });

@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           h('span', { class: 'checkout-item-title' }, item.title),
           h('span', { class: 'checkout-item-qty' }, 'Qty: ' + item.qty),
         ),
-        h('span', { class: 'checkout-item-sum' }, formatPrice(item.price * item.qty)),
+        h('span', { class: 'checkout-item-sum' }, formatPrice(item.sum || item.price * item.qty)),
       )
     ));
     document.getElementById('checkout-sidebar').append(createPresentationCard());

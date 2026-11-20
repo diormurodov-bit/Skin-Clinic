@@ -123,6 +123,16 @@ function productImage(p) {
   return h('img', { src: productImageUrl(p), alt: p.title || '', loading: 'lazy' });
 }
 
+function skeletonCard() {
+  return h('div', { class: 'card skeleton-card' },
+    h('div', { class: 'skeleton skeleton-img' }),
+    h('div', { class: 'card__info' },
+      h('span', { class: 'skeleton skeleton-title' }),
+      h('span', { class: 'skeleton skeleton-price' }),
+    ),
+  );
+}
+
 function productCard(p) {
   return h('a', { class: 'card', href: 'product.html?id=' + encodeURIComponent(p._id || p.productId) },
     h('div', { class: 'card__img' }, productImage(p)),
@@ -338,14 +348,23 @@ function renderFooter() {
 }
 
 function showThanks(subtitle, onClose) {
+  function close() {
+    document.removeEventListener('keydown', onKey);
+    modal.remove();
+    if (onClose) onClose();
+  }
+  function onKey(e) {
+    if (e.key === 'Escape') close();
+  }
   const modal = h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
     h('div', { class: 'modal__card modal__card--thanks' },
       h('h2', { class: 'thanks__title' }, 'Thank you!'),
       h('p', { class: 'thanks__sub' }, subtitle),
-      h('button', { type: 'button', class: 'thanks__btn', onclick: () => { modal.remove(); if (onClose) onClose(); } }, 'Okay'),
+      h('button', { type: 'button', class: 'thanks__btn', onclick: close }, 'Okay'),
     ),
   );
-  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', onKey);
   document.body.append(modal);
 }
 

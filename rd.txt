@@ -1,14 +1,14 @@
 Skin—Clinic HTML Edition — Release Notes & Assets Manifest
 =========================================================
-Version: 1.4.0
+Version: 1.5.0
 API Base: https://api.wepro.uz/sandbox-shop
 
 Included Pages:
-- index.html      Home (Hero, Shop now -> products.html, Best sellers, Shop by category from backend, Featured products)
-- products.html   Catalog with sticky desktop filter (bold active category selection, 0-100 price range)
-- product.html    Product detail, qty selector, "In your bag" link notice, All Reviews & Leave a comment modal
-- bag.html        Shopping cart (backend product thumbnails, links to checkout.html)
-- checkout.html   Uniform English checkout form (desktop & mobile, pre-filled phone, Courier/Pickup + Map, gated Place Order submit, full-screen presentation video player with speed 0.5x-2x & sound controls)
+- index.html      Home (Hero, Shop now -> products.html, Best sellers, Shop by category from backend, Featured products, Skeleton loading)
+- products.html   Catalog with sticky desktop filter (bold active category selection, 0-100 price range, mobile filter sheet, skeleton loading)
+- product.html    Product detail, qty selector (1-20), "In your bag" link notice, All Reviews & Leave a comment modal + Thank you modal
+- bag.html        Shopping cart (backend product thumbnails, quantity controls, mobile Subtotal/Discount summary, links to checkout.html)
+- checkout.html   Single-page Checkout (pre-filled user details, Courier/Pickup + Map, Standard/Express, Cash/Card/Payme, gated Place Order, Order Confirmed receipt, fullscreen presentation video player with speed 0.5x-2x & sound controls)
 - info.html       Support, Company, Legal & Start a Return (damaged product photo upload & description)
 - login.html      Sign in (POST /login)
 - register.html   Account registration (POST /register)

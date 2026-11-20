@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /bag.html
+Disallow: /checkout.html
 Disallow: /profile.html
-
 Sitemap: /sitemap.xml
