@@ -410,7 +410,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="checkout-options">
               <label class="checkout-option ${deliveryMethod === 'standard' ? 'active' : ''}">
                 <input type="radio" name="deliveryMethod" value="standard" ${deliveryMethod === 'standard' ? 'checked' : ''}>
-                <div class="checkout-option-icon">🚚</div>
+                <div class="checkout-option-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Standard Courier Delivery (2–3 business days)</span>
                   <span class="checkout-option-sub">Free direct delivery across Uzbekistan</span>
@@ -419,7 +421,9 @@ document.addEventListener('DOMContentLoaded', async () => {
               </label>
               <label class="checkout-option ${deliveryMethod === 'express' ? 'active' : ''}">
                 <input type="radio" name="deliveryMethod" value="express" ${deliveryMethod === 'express' ? 'checked' : ''}>
-                <div class="checkout-option-icon">⚡</div>
+                <div class="checkout-option-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Express Delivery (Same day in Tashkent)</span>
                   <span class="checkout-option-sub">Guaranteed delivery within 4–6 hours</span>
@@ -437,7 +441,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="checkout-options">
               <label class="checkout-option ${paymentMethod === 'cash' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="cash" ${paymentMethod === 'cash' ? 'checked' : ''}>
-                <div class="checkout-option-icon">💵</div>
+                <div class="checkout-option-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>
+                </div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Cash on Delivery</span>
                   <span class="checkout-option-sub">Pay in cash or terminal upon receiving parcel</span>
@@ -445,7 +451,9 @@ document.addEventListener('DOMContentLoaded', async () => {
               </label>
               <label class="checkout-option ${paymentMethod === 'card' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="card" ${paymentMethod === 'card' ? 'checked' : ''}>
-                <div class="checkout-option-icon">💳</div>
+                <div class="checkout-option-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                </div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Bank Card (Online)</span>
                   <span class="checkout-option-sub">Visa, Mastercard, Uzcard, Humo</span>
@@ -453,7 +461,9 @@ document.addEventListener('DOMContentLoaded', async () => {
               </label>
               <label class="checkout-option ${paymentMethod === 'payme' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="payme" ${paymentMethod === 'payme' ? 'checked' : ''}>
-                <div class="checkout-option-icon">📱</div>
+                <div class="checkout-option-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Click / Payme</span>
                   <span class="checkout-option-sub">Instant payment through digital wallet</span>
