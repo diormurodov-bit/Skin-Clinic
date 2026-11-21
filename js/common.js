@@ -308,7 +308,7 @@ function renderFooter() {
       h('div', { class: 'footer__col footer__col--logo' },
         h('div', { class: 'footer__logo' }, h('img', { src: 'assets/icons/footer-logo.svg', alt: 'Skin—Clinic' })),
         h('div', { class: 'footer__social' },
-          h('a', { href: '#instagram', 'aria-label': 'Instagram', onclick: (e) => e.preventDefault() }, h('img', { src: 'assets/icons/instagram.svg', alt: 'Instagram' })),
+          h('a', { href: 'https://www.instagram.com/skinclinicuz/', target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Instagram' }, h('img', { src: 'assets/icons/instagram.svg', alt: 'Instagram' })),
           h('a', { href: 'https://www.facebook.com/profile.php?id=61582733457866', target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Facebook' }, h('img', { src: 'assets/icons/facebook.svg', alt: 'Facebook' })),
           h('a', { href: 'https://www.youtube.com/channel/UC4Iqqq1HIL3eQwEZO6SNmzg', target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'YouTube' }, h('img', { src: 'assets/icons/youtube.svg', alt: 'YouTube' })),
         ),

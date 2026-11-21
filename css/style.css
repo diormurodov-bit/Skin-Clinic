@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
 html {
   background: var(--white);
   color: var(--black);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 body {
   min-width: 0;
@@ -40,7 +40,7 @@ body {
   font-family: var(--inter);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
 button {
@@ -173,15 +173,12 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* ── Catalog & Sticky Filter ──────────────────────────────── */
 .catalog {
-  width: min(1200px, calc(100% - 48px));
+  width: min(1519px, calc(100% - 48px));
   margin: 42px auto 76px;
   position: relative;
   display: block;
 }
 .filters {
-  position: absolute;
-  top: 0;
-  left: -315px;
   width: 295px;
   padding: 19px 23px;
   display: flex;
@@ -192,19 +189,23 @@ input, textarea, select { font: inherit; color: inherit; }
   background: var(--white);
   font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", Arial, sans-serif;
 }
-@media (max-width: 1879px) and (min-width: 861px) {
+@media (min-width: 861px) {
   .catalog {
-    width: min(1519px, calc(100% - 48px));
     display: grid;
     grid-template-columns: 295px minmax(0, 1fr);
-    gap: 24px;
+    gap: 32px;
     align-items: start;
   }
   .filters {
+    position: -webkit-sticky;
     position: sticky;
     top: 24px;
     left: auto;
     align-self: start;
+    max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
+    z-index: 10;
   }
 }
 .filters__head, .filters__price-head { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 24px; }
