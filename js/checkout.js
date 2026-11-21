@@ -294,33 +294,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     root.innerHTML = `
       <div class="checkout-header">
-        <a href="bag.html" class="checkout-back-link">← Back to Bag</a>
-        <h1>Checkout</h1>
+        <a href="bag.html" class="checkout-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          <span>Back to Bag</span>
+        </a>
+        <div class="checkout-header-row">
+          <h1>Checkout</h1>
+          <span class="checkout-secure-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Secure 256-Bit Checkout</span>
+          </span>
+        </div>
       </div>
       <div id="checkout-error">${formError ? `<div class="checkout-error">${formError}</div>` : ''}</div>
       <form id="checkout-form" class="checkout-grid" novalidate>
         <div class="checkout-main">
           <section class="checkout-card">
-            <h2>1. Contact &amp; Delivery Address</h2>
+            <div class="checkout-card-head">
+              <span class="checkout-step-badge">1</span>
+              <h2>Contact &amp; Delivery Address</h2>
+            </div>
             <div class="map-pickup-tabs">
               <button type="button" class="map-pickup-tab ${deliveryType === 'home' ? 'active' : ''}" data-dtype="home">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                <span>Courier</span>
+                <span>Courier Delivery</span>
               </button>
               <button type="button" class="map-pickup-tab ${deliveryType === 'pickup' ? 'active' : ''}" data-dtype="pickup">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>Pickup Point</span>
+                <span>Pickup Boutique</span>
               </button>
             </div>
             <div class="checkout-fields">
               <div class="checkout-field-row">
-                <label>Recipient Name *<input id="co-name" required type="text" placeholder="Alex Adams"></label>
-                <label>Phone Number *<input id="co-phone" required type="tel" placeholder="+998 90 123 45 67"></label>
+                <label>
+                  <span>Recipient Name <b class="req">*</b></span>
+                  <input id="co-name" required type="text" placeholder="Alex Adams" autocomplete="name">
+                </label>
+                <label>
+                  <span>Phone Number <b class="req">*</b></span>
+                  <input id="co-phone" required type="tel" placeholder="+998 90 123 45 67" autocomplete="tel">
+                </label>
               </div>
               <div class="checkout-field-row">
-                <label>Email Address *<input id="co-email" required type="email" placeholder="you@example.com"></label>
+                <label>
+                  <span>Email Address <b class="req">*</b></span>
+                  <input id="co-email" required type="email" placeholder="you@example.com" autocomplete="email">
+                </label>
                 ${deliveryType === 'home' ? `
-                  <label>City / Region *
+                  <label>
+                    <span>City / Region <b class="req">*</b></span>
                     <select id="co-city">
                       <option value="Tashkent" ${city === 'Tashkent' ? 'selected' : ''}>Tashkent</option>
                       <option value="Samarkand" ${city === 'Samarkand' ? 'selected' : ''}>Samarkand</option>
@@ -333,54 +355,73 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ` : ''}
               </div>
               ${deliveryType === 'home' ? `
-                <label>Delivery Address (Street, House, Apt) *<input id="co-address" required type="text" placeholder="e.g. Navoi street, Building 14, Apt 25"></label>
+                <label>
+                  <span>Delivery Address (Street, Building, Apt) <b class="req">*</b></span>
+                  <input id="co-address" required type="text" placeholder="e.g. Navoi street, Building 14, Apt 25">
+                </label>
                 <div class="map-preview-container" id="co-courier-map" ${address.trim() ? '' : 'hidden'}>
                   <div class="map-preview-label">
                     <span class="map-dot"></span>
-                    <b>Delivery address on map:</b> <span id="co-map-addr-text"></span>
+                    <b>Location:</b> <span id="co-map-addr-text"></span>
                   </div>
-                  <iframe title="Delivery location map" width="100%" height="160" style="border:0;display:block" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.15,41.25,69.35,41.35&layer=mapnik&marker=41.311081,69.240562"></iframe>
+                  <iframe title="Delivery location map" width="100%" height="150" style="border:0;display:block" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.15,41.25,69.35,41.35&layer=mapnik&marker=41.311081,69.240562"></iframe>
                 </div>
               ` : `
                 <div>
-                  <span class="pickup-heading-label">Select a pickup point:</span>
+                  <span class="pickup-heading-label">Select Skin—Clinic boutique for pickup:</span>
                   <div class="pickup-list-stack">
                     ${pickupPoints.map((p) => `
                       <button type="button" class="pickup-point-card ${selectedPickup === p.name ? 'selected' : ''}" data-pickup="${p.name}">
-                        <div class="pickup-card-top">
-                          <strong>${p.name}</strong>
-                          ${selectedPickup === p.name ? '<span class="pickup-selected-badge">✓ Selected</span>' : ''}
+                        <div class="pickup-card-indicator">
+                          <span class="pickup-radio-dot"></span>
                         </div>
-                        <div class="pickup-card-addr">${p.address}</div>
-                        <div class="pickup-card-hours">${p.hours}</div>
+                        <div class="pickup-card-content">
+                          <div class="pickup-card-top">
+                            <strong>${p.name}</strong>
+                            ${selectedPickup === p.name ? '<span class="pickup-selected-badge">✓ Selected</span>' : ''}
+                          </div>
+                          <div class="pickup-card-addr">${p.address}</div>
+                          <div class="pickup-card-hours">${p.hours}</div>
+                        </div>
                       </button>
                     `).join('')}
                   </div>
                   <div class="map-preview-container">
-                    <div class="map-preview-label"><b>Pickup point on map:</b> ${selectedPickup}</div>
-                    <iframe title="Pickup location map" width="100%" height="160" style="border:0;display:block" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.20,41.28,69.32,41.34&layer=mapnik&marker=41.311081,69.240562"></iframe>
+                    <div class="map-preview-label">
+                      <span class="map-dot"></span>
+                      <b>Pickup point map:</b> ${selectedPickup}
+                    </div>
+                    <iframe title="Pickup location map" width="100%" height="150" style="border:0;display:block" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=69.20,41.28,69.32,41.34&layer=mapnik&marker=41.311081,69.240562"></iframe>
                   </div>
                 </div>
               `}
-              <label>Delivery Instructions (Optional)<input id="co-notes" type="text" placeholder="e.g. Door code, leave with concierge"></label>
+              <label>
+                <span>Delivery Notes (Optional)</span>
+                <input id="co-notes" type="text" placeholder="e.g. Door code #123, call when arriving">
+              </label>
             </div>
           </section>
 
           <section class="checkout-card">
-            <h2>2. Delivery Method</h2>
+            <div class="checkout-card-head">
+              <span class="checkout-step-badge">2</span>
+              <h2>Delivery Speed</h2>
+            </div>
             <div class="checkout-options">
               <label class="checkout-option ${deliveryMethod === 'standard' ? 'active' : ''}">
                 <input type="radio" name="deliveryMethod" value="standard" ${deliveryMethod === 'standard' ? 'checked' : ''}>
+                <div class="checkout-option-icon">🚚</div>
                 <div class="checkout-option-info">
-                  <span class="checkout-option-title">Standard Delivery (2–3 business days)</span>
-                  <span class="checkout-option-sub">Free courier delivery to your doorstep</span>
+                  <span class="checkout-option-title">Standard Courier Delivery (2–3 business days)</span>
+                  <span class="checkout-option-sub">Free direct delivery across Uzbekistan</span>
                 </div>
-                <b class="checkout-option-price">Free</b>
+                <span class="checkout-option-free-tag">Free</span>
               </label>
               <label class="checkout-option ${deliveryMethod === 'express' ? 'active' : ''}">
                 <input type="radio" name="deliveryMethod" value="express" ${deliveryMethod === 'express' ? 'checked' : ''}>
+                <div class="checkout-option-icon">⚡</div>
                 <div class="checkout-option-info">
-                  <span class="checkout-option-title">Express Delivery (Same day)</span>
+                  <span class="checkout-option-title">Express Delivery (Same day in Tashkent)</span>
                   <span class="checkout-option-sub">Guaranteed delivery within 4–6 hours</span>
                 </div>
                 <b class="checkout-option-price">$5</b>
@@ -389,17 +430,22 @@ document.addEventListener('DOMContentLoaded', async () => {
           </section>
 
           <section class="checkout-card">
-            <h2>3. Payment Method</h2>
+            <div class="checkout-card-head">
+              <span class="checkout-step-badge">3</span>
+              <h2>Payment Method</h2>
+            </div>
             <div class="checkout-options">
               <label class="checkout-option ${paymentMethod === 'cash' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="cash" ${paymentMethod === 'cash' ? 'checked' : ''}>
+                <div class="checkout-option-icon">💵</div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Cash on Delivery</span>
-                  <span class="checkout-option-sub">Pay in cash or card upon receiving the parcel</span>
+                  <span class="checkout-option-sub">Pay in cash or terminal upon receiving parcel</span>
                 </div>
               </label>
               <label class="checkout-option ${paymentMethod === 'card' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="card" ${paymentMethod === 'card' ? 'checked' : ''}>
+                <div class="checkout-option-icon">💳</div>
                 <div class="checkout-option-info">
                   <span class="checkout-option-title">Bank Card (Online)</span>
                   <span class="checkout-option-sub">Visa, Mastercard, Uzcard, Humo</span>
@@ -407,9 +453,10 @@ document.addEventListener('DOMContentLoaded', async () => {
               </label>
               <label class="checkout-option ${paymentMethod === 'payme' ? 'active' : ''}">
                 <input type="radio" name="paymentMethod" value="payme" ${paymentMethod === 'payme' ? 'checked' : ''}>
+                <div class="checkout-option-icon">📱</div>
                 <div class="checkout-option-info">
-                  <span class="checkout-option-title">Payme / Click</span>
-                  <span class="checkout-option-sub">Instant payment through local wallet</span>
+                  <span class="checkout-option-title">Click / Payme</span>
+                  <span class="checkout-option-sub">Instant payment through digital wallet</span>
                 </div>
               </label>
             </div>
@@ -418,16 +465,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         <aside class="checkout-sidebar" id="checkout-sidebar">
           <div class="checkout-card summary-card">
-            <h2>Order Summary</h2>
+            <div class="checkout-card-head">
+              <h2>Order Summary</h2>
+            </div>
             <div class="checkout-items-preview" id="co-items"></div>
             <div class="checkout-totals">
               <div class="checkout-total-row">
-                <span>Subtotal</span>
+                <span>Subtotal (${cart.items.reduce((acc, i) => acc + (i.qty || 1), 0)} items)</span>
                 <span>${formatPrice(cart.total)}</span>
               </div>
               <div class="checkout-total-row">
                 <span>Shipping</span>
-                <span>${shippingFee === 0 ? 'Free' : '$5'}</span>
+                <span>${shippingFee === 0 ? '<span class="free-shipping-badge">Free</span>' : '$5'}</span>
               </div>
               <div class="checkout-divider"></div>
               <div class="checkout-total-row final">
@@ -439,7 +488,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               Place Order — ${formatPrice(grandTotal)}
             </button>
             <p class="checkout-hint" id="co-hint" ${isCheckoutReady() ? 'hidden' : ''}>
-              Complete all required fields above to enable Place Order.
+              Please complete all required fields above to place your order.
             </p>
           </div>
         </aside>
