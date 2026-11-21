@@ -29,9 +29,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const regForm = document.getElementById('register-form');
   if (regForm) {
     if (next) document.getElementById('to-login').href = 'login.html?next=' + encodeURIComponent(next);
+
+    const isMobile = () => {
+      const isSmallScreen = window.innerWidth <= 860;
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+      return isSmallScreen || isMobileUA;
+    };
+
+    const requestMobileNotification = async () => {
+      if (!isMobile()) return;
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'default') {
+        try {
+          await Notification.requestPermission();
+        } catch (_) {}
+      }
+    };
+
+    const onMobileInteraction = () => {
+      if (isMobile()) {
+        requestMobileNotification();
+      }
+    };
+    regForm.addEventListener('focusin', onMobileInteraction, { once: true });
+    regForm.addEventListener('touchstart', onMobileInteraction, { once: true, passive: true });
+
     regForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       error.textContent = '';
+
+      if (isMobile()) {
+        await requestMobileNotification();
+      }
+
       const phone = regForm.phone.value.replace(/\D/g, '');
       if (phone.length < 9 || phone.length > 15) { error.textContent = 'Phone must contain 9 to 15 digits'; return; }
       if (regForm.password.value !== regForm.password2.value) { error.textContent = 'Passwords do not match'; return; }
@@ -47,6 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (!res || !res.token) throw new Error('Invalid response from server');
         auth.set(res.token, res.user);
+
+        if (isMobile() && 'Notification' in window && Notification.permission === 'granted') {
+          try {
+            new Notification('Skin—Clinic', {
+              body: 'Welcome to Skin—Clinic, ' + (res.user && res.user.name ? res.user.name : 'friend') + '!',
+              icon: 'assets/img/favicon.png',
+            });
+          } catch (_) {}
+        }
+
         location.href = target;
       } catch (err) {
         error.textContent = err.message || 'Authentication failed';

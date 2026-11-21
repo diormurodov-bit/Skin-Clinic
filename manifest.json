@@ -2,7 +2,7 @@
   "name": "Skin—Clinic",
   "short_name": "SkinClinic",
   "description": "Skin—Clinic online store. Premium cosmetics & beauty products.",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",

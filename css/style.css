@@ -25,16 +25,22 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
-html { background: var(--white); color: var(--black); }
+html {
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
 body {
-  min-width: 320px;
+  min-width: 0;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   font-family: var(--inter);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
 button {
@@ -768,12 +774,45 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
   .catalog__title { font-size: 32px; line-height: 1; letter-spacing: -0.06em; }
   .filter-toggle { display: flex; width: 32px; height: 32px; border-radius: 62px; background: var(--light); align-items: center; justify-content: center; flex-shrink: 0; }
   .filter-toggle img { width: 16px; height: 16px; display: block; }
-  .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 90; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 90; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
   .sheet-open .sheet-overlay { display: block; }
-  .filters { display: none; position: fixed; top: auto; bottom: 0; left: 50%; transform: translateX(-50%); width: min(390px, 100%); height: 437px; max-height: calc(100dvh - 48px); overflow-y: auto; z-index: 91; border-radius: 20px 20px 0 0; border: 1px solid rgba(0, 0, 0, 0.1); padding: 19px 23px; gap: 24px; }
-  .sheet-open .filters { display: flex; }
+  .filters {
+    display: none;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    height: auto;
+    max-height: min(85dvh, 85vh);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 91;
+    border-radius: 20px 20px 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    padding: 20px 24px calc(24px + env(safe-area-inset-bottom, 0px));
+    gap: 20px;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.16);
+  }
+  .sheet-open .filters { display: flex; flex-direction: column; }
+  .filters > * { flex-shrink: 0; }
   .filters__icon { display: none; }
   .filters__close { display: inline-flex; }
+  .filters__apply {
+    flex-shrink: 0;
+    width: 100%;
+    min-height: 48px;
+    height: 48px;
+    margin-top: 0;
+  }
+  .filters__reset {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
   .products-row--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; row-gap: 22px; }
   .products-row--grid .card__img { aspect-ratio: 160 / 140; border-radius: 8px; }
   .products-row--grid .card__info { flex-direction: column; align-items: flex-start; gap: 11px; margin-top: 0; }
@@ -840,11 +879,45 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
 }
 
 @media (max-width: 375px) {
-  .header__inner { padding: 0 16px; }
-  .header__logo { width: 90px; height: 31px; margin-left: 12px; }
-  .header__logo img { width: 90px; height: 31px; }
-  .header__m { font-size: 14px; }
-  .header__m.header__account { margin-right: 14px; max-width: 90px; }
+  .header__inner { padding: 0 12px; }
+  .header__logo { width: 84px; height: 28px; margin-left: 10px; }
+  .header__logo img { width: 84px; height: 28px; }
+  .header__m { font-size: 13px; }
+  .header__m.header__account { margin-right: 10px; max-width: 72px; }
+  .header__m.header__bag { font-size: 13px; }
+
+  .hero { height: auto; min-height: 480px; padding: 40px 16px 36px; }
+  .hero__title--mobile { font-size: 34px; line-height: 1.1; }
+  .hero__sub { font-size: 14px; }
+
+  .catalog { width: calc(100% - 24px); max-width: calc(100% - 24px); margin: 28px auto 44px; }
+  .catalog__title { font-size: 26px; }
+  .products-row--grid { column-gap: 12px; row-gap: 16px; }
+  .products-row--grid .card__title { font-size: 14px; }
+  .products-row--grid .card__price { font-size: 14px; }
+
+  .bag { width: calc(100% - 24px); padding-top: 24px; padding-bottom: 32px; gap: 28px; }
+  .bag__title { font-size: 26px; margin-bottom: 16px; }
+  .bag-item { height: auto; min-height: 120px; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .bag-item__img { width: 100px; height: 100px; }
+  .bag-item__remove { top: 68px; right: 0; }
+  .bag-item .qty { top: 60px; height: 38px; right: 28px; padding: 6px 10px; gap: 10px; }
+
+  .pdp__img { width: calc(100% - 24px); }
+  .pdp__info { padding: 0 16px; }
+  .pdp__title { font-size: 28px; }
+  .pdp__price { font-size: 24px; }
+  .pdp__actions { grid-template-columns: 100px 1fr; gap: 8px; }
+  .pdp__actions .qty { height: 44px; padding: 8px 10px; gap: 8px; }
+  .pdp__actions .btn-pill { height: 44px; font-size: 13px; }
+
+  .auth { width: calc(100% - 24px); margin: 36px auto 64px; }
+  .auth .form-title { font-size: 26px; margin-bottom: 20px; }
+  .checkout-page { width: calc(100% - 20px); margin: 16px auto 48px; }
+  .checkout-header h1 { font-size: 26px; }
+  .checkout-card { padding: 16px 12px; }
+  .info-page { width: calc(100% - 20px); margin: 16px auto 48px; }
+  .info-page h1 { font-size: 26px; }
 }
 
 
@@ -908,7 +981,7 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
   border-radius: 8px;
 }
 .products-row--grid .skeleton-card .skeleton-img {
-  aspect-ratio: 160 / 185;
+  aspect-ratio: 160 / 140;
 }
 .skeleton-card .skeleton-title {
   height: 14px;
@@ -921,3 +994,485 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
   width: 30%;
   border-radius: 6px;
 }
+
+
+/* ── Apple Watch & Smartwatches (max-width: 300px) ───────────── */
+@media (max-width: 300px) {
+  html, body {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 13px;
+  }
+  .container {
+    width: 100% !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  /* Header on Watch */
+  .header {
+    height: 48px;
+  }
+  .header__inner {
+    padding: 0 8px;
+    gap: 6px;
+  }
+  .header__menu {
+    width: 22px;
+    height: 22px;
+  }
+  .header__menu svg {
+    width: 20px;
+    height: 20px;
+  }
+  .header__logo {
+    width: 68px;
+    height: 24px;
+    margin-left: 6px;
+  }
+  .header__logo img {
+    width: 68px;
+    height: 24px;
+  }
+  .header__m.header__account {
+    display: none !important;
+  }
+  .header__m.header__bag {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Mobile menu on Watch */
+  .mobile-nav {
+    padding: 8px 10px 16px;
+  }
+  .mobile-menu-link {
+    height: 42px;
+    min-height: 42px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  /* Hero on Watch */
+  .hero {
+    height: auto !important;
+    min-height: 210px;
+    padding: 24px 10px 16px;
+    justify-content: flex-end;
+  }
+  .hero__sub {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .hero__title--mobile {
+    font-size: 20px !important;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+  .hero .btn-glass {
+    width: 100%;
+    height: 38px;
+    font-size: 12px;
+    padding: 0 14px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+
+  /* Sections & Headings on Watch */
+  .section {
+    padding-top: 24px;
+  }
+  .section--cats {
+    padding-bottom: 24px;
+  }
+  .home-last {
+    padding-bottom: 32px;
+  }
+  .section__title, .t-h2 {
+    font-size: 18px !important;
+    margin-bottom: 12px;
+    letter-spacing: -0.4px;
+  }
+
+  /* Products Grid on Watch (Single column for clarity) */
+  .products-row,
+  .products-row--home,
+  .products-row--grid {
+    grid-template-columns: 1fr !important;
+    row-gap: 14px !important;
+    column-gap: 0 !important;
+  }
+  .card {
+    gap: 6px;
+  }
+  .card__img {
+    aspect-ratio: 16 / 12 !important;
+    border-radius: 6px;
+  }
+  .products-row--home .card__img {
+    aspect-ratio: 16 / 12 !important;
+  }
+  .products-row--grid .card__img {
+    aspect-ratio: 16 / 12 !important;
+  }
+  .products-row--grid .skeleton-card .skeleton-img {
+    aspect-ratio: 16 / 12 !important;
+  }
+  .card__title {
+    font-size: 13px !important;
+  }
+  .card__price {
+    font-size: 13px !important;
+  }
+
+  /* Categories on Watch */
+  .categories {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .category {
+    height: 130px;
+    padding: 10px;
+  }
+  .category .btn-glass {
+    padding: 6px 12px;
+    font-size: 11px;
+    height: 30px;
+  }
+
+  /* Catalog on Watch */
+  .catalog {
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    margin: 16px auto 32px !important;
+  }
+  .catalog__head {
+    margin-bottom: 12px;
+  }
+  .catalog__title {
+    font-size: 20px !important;
+  }
+  .filter-toggle {
+    width: 28px;
+    height: 28px;
+  }
+  .filter-toggle img {
+    width: 14px;
+    height: 14px;
+  }
+  .catalog__empty {
+    height: auto;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  /* Filters Sheet on Watch */
+  .filters {
+    padding: 14px 12px calc(16px + env(safe-area-inset-bottom, 0px));
+    gap: 14px;
+    max-height: 90dvh;
+    border-radius: 14px 14px 0 0;
+  }
+  .filters__heading {
+    font-size: 16px;
+  }
+  .filters__cat {
+    font-size: 13px;
+  }
+  .range__labels {
+    font-size: 12px;
+  }
+  .filters__apply {
+    height: 40px;
+    min-height: 40px;
+    font-size: 13px;
+  }
+  .filters__reset {
+    font-size: 12px;
+  }
+
+  /* Product Detail (PDP) on Watch */
+  .pdp {
+    padding: 16px 0 0;
+  }
+  .pdp__top {
+    gap: 16px;
+  }
+  .pdp__img {
+    width: calc(100% - 16px);
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+  }
+  .pdp__img img {
+    padding: 12px;
+  }
+  .pdp__info {
+    padding: 0 10px;
+  }
+  .pdp__title {
+    font-size: 20px !important;
+  }
+  .pdp__price {
+    font-size: 17px !important;
+    margin-top: 6px;
+  }
+  .pdp__desc {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 10px;
+  }
+  .pdp__actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .pdp__actions .qty {
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+  }
+  .pdp__actions .btn-pill {
+    height: 42px;
+    font-size: 13px;
+  }
+  .reviews {
+    margin-top: 28px;
+    padding: 0 10px 36px;
+  }
+  .reviews__title {
+    font-size: 15px;
+  }
+  .reviews__write {
+    width: auto;
+    padding: 0 12px;
+    height: 32px;
+    font-size: 11px;
+  }
+  .review {
+    padding: 14px 12px;
+  }
+  .review__name {
+    font-size: 13px;
+  }
+  .review__text {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* Bag on Watch */
+  .bag {
+    width: calc(100% - 16px);
+    padding-top: 16px;
+    padding-bottom: 24px;
+    gap: 20px;
+  }
+  .bag__title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .bag-item {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    position: relative;
+    gap: 8px;
+  }
+  .bag-item__img {
+    width: 64px;
+    height: 64px;
+  }
+  .bag-item__body {
+    padding-top: 0;
+    width: 100%;
+  }
+  .bag-item__title {
+    font-size: 13px;
+    width: calc(100% - 32px);
+    display: block;
+  }
+  .bag-item__price {
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .bag-item__remove {
+    top: 8px;
+    right: 8px;
+  }
+  .bag-item .qty {
+    position: static;
+    margin-top: 8px;
+    width: 100%;
+    height: 34px;
+  }
+  .summary {
+    padding: 14px 12px;
+    border-radius: 14px;
+    gap: 14px;
+  }
+  .summary__title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .summary__rows {
+    gap: 12px;
+    font-size: 12px;
+  }
+  .summary__row--sub .summary__value,
+  .summary__total {
+    font-size: 14px;
+  }
+  #checkout {
+    height: 40px;
+    font-size: 13px;
+  }
+  .bag-empty {
+    height: auto;
+    padding: 14px;
+    font-size: 13px;
+  }
+
+  /* Checkout on Watch */
+  .checkout-page {
+    width: calc(100% - 14px);
+    margin: 16px auto 36px;
+  }
+  .checkout-header h1 {
+    font-size: 20px;
+  }
+  .checkout-card {
+    padding: 14px 10px;
+    border-radius: 10px;
+  }
+  .checkout-card h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .checkout-fields input,
+  .checkout-fields select {
+    height: 40px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+  .checkout-radio-btn,
+  .checkout-option-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .co-submit-btn {
+    height: 42px;
+    font-size: 13px;
+  }
+  .apple-video-card {
+    border-radius: 10px;
+  }
+
+  /* Auth (Login / Register) on Watch */
+  .auth {
+    width: calc(100% - 16px);
+    margin: 20px auto 40px;
+  }
+  .auth .form-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+    letter-spacing: -0.6px;
+  }
+  .field {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .field__label {
+    font-size: 12px;
+  }
+  .field__input {
+    height: 40px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+  .btn-form {
+    height: 42px;
+    font-size: 13px;
+  }
+  .form-alt {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  /* Profile on Watch */
+  .profile {
+    padding: 0 10px 48px;
+    gap: 12px;
+  }
+  .profile h1 {
+    font-size: 20px;
+  }
+  .profile p {
+    font-size: 13px;
+  }
+  .profile button {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  /* Info on Watch */
+  .info-page {
+    width: calc(100% - 16px);
+    margin: 16px auto 36px;
+  }
+  .info-page h1 {
+    font-size: 20px;
+  }
+  .info-lead {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .info-card, .return-form, .return-success-box {
+    padding: 12px 10px;
+  }
+  .info-card h2 {
+    font-size: 14px;
+  }
+  .info-card p {
+    font-size: 12px;
+  }
+  .return-field textarea {
+    min-height: 80px;
+    font-size: 13px;
+  }
+
+  /* Footer on Watch */
+  .footer {
+    padding: 32px 10px 24px;
+  }
+  .footer__top {
+    gap: 20px;
+  }
+  .footer__logo img {
+    width: 80px;
+  }
+  .footer__social {
+    gap: 12px;
+  }
+  .footer__social img {
+    width: 20px;
+    height: 20px;
+  }
+  .footer__title {
+    font-size: 12px;
+  }
+  .footer__links a {
+    font-size: 12px;
+  }
+  .footer__bottom {
+    gap: 14px;
+    font-size: 10px;
+  }
+  .footer__legal {
+    gap: 8px;
+  }
+}
+
