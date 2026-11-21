@@ -11,19 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'faq': 'faqs',
   };
 
-  const NAV_SECTIONS = [
-    { id: 'faqs', label: 'FAQs', group: 'Support' },
-    { id: 'shipping-policy', label: 'Shipping Policy', group: 'Support' },
-    { id: 'return-policy', label: 'Return Policy', group: 'Support' },
-    { id: 'start-return', label: 'Start a Return', group: 'Support' },
-    { id: 'about', label: 'About Us', group: 'Company' },
-    { id: 'journal', label: 'The Ritual & Journal', group: 'Company' },
-    { id: 'contact', label: 'Contact Us', group: 'Company' },
-    { id: 'terms', label: 'Terms of Service', group: 'Legal' },
-    { id: 'privacy', label: 'Privacy Policy', group: 'Legal' },
-    { id: 'cookies', label: 'Cookies Settings', group: 'Legal' },
-  ];
-
   const INFO_PAGES = {
     faqs: {
       id: 'faqs',
@@ -125,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       eyebrow: 'Client Support Portal',
       title: 'Start a Return or Damaged Item Claim',
       lead: 'Upload a clear photo of your damaged item or packaging and provide a brief description. Our client care team will resolve your request within 24 hours.',
-      badge: 'Instant Claim Form',
+      badge: 'Instant Claim Portal',
       isReturnForm: true,
     },
     about: {
@@ -133,22 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
       eyebrow: 'Our Heritage & Philosophy',
       title: 'About Skin—Clinic',
       lead: 'Clean, botanical skincare essentials powered by physiological lipids, Swiss bio-actives, and clinical minimalism for radiant, resilient skin.',
-      badge: '03 / О НАС',
+      badge: '03 / About Us',
       blocks: [
         {
-          heading: '01 / КОЛЛЕКЦИЯ. Наука и липидный барьер',
+          heading: '01 / Collection. Barrier Lipid Science',
           text: 'The skin barrier is the body’s first defense against environmental stress, urban pollution, and oxidative aging. Skin—Clinic was founded by dermatologists who recognized that overcomplicated skincare routines with harsh foaming agents and synthetic fragrances frequently compromise this vital lipid shield. Every formula in our collection is centered on barrier restoration, utilizing ceramide precursors, biomimetic squalane, and multi-molecular hyaluronic complexes.',
         },
         {
-          heading: '02 / ЧИСТЫЕ ФОРМУЛЫ. Без компромиссов',
+          heading: '02 / Clean Formulas. Zero Compromises',
           text: 'We operate under a strict "clean clinical" standard. We eliminate silicones, parabens, phthalates, artificial colorants, synthetic fragrance compounds, and drying alcohols. What remains is a potent synergy of cold-pressed botanical oils (meadowfoam, jojoba, sweet almond) and evidence-based clinical actives that deliver visible results without sensitization.',
         },
         {
-          heading: '03 / О НАС. Дерматологический минимализм',
+          heading: '03 / About Us. Dermatological Minimalism',
           text: 'We believe skincare should be intuitive, restorative, and grounded in dermatology. Rather than demanding a complex ten-step routine, Skin—Clinic crafts multipurpose essentials that harmonize with your skin’s natural circadian renewal cycle — hydrating deeply during the day and repairing the lipid barrier overnight.',
         },
         {
-          heading: '04 / УСТОЙЧИВОСТЬ. Забота об экологии',
+          heading: '04 / Sustainability. Ecological Care',
           text: 'True wellness honors both the skin and the planet. Our serums and creams are housed in 100% recyclable dark amber glass flacons that protect active ingredients from photodegradation while minimizing plastic waste. All secondary cartons are made from FSC-certified unbleached paperboard printed with soy-based inks.',
         },
       ],
@@ -158,26 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
       eyebrow: 'Skincare Guide & Ritual',
       title: 'The Daily Care Ritual & Journal',
       lead: 'Master the art of barrier restoration. Explore daily layering rituals, seasonal adaptations, and dermatological insights curated by Skin—Clinic specialists.',
-      badge: '02 / РИТУАЛ УХОДА',
+      badge: '02 / Daily Ritual',
       blocks: [
         {
-          heading: 'Шаг 01 / Бережное очищение (Cleansing)',
+          heading: 'Step 01 / Gentle Cleansing',
           text: 'A healthy routine begins with barrier-sparing cleansing. Avoid harsh high-pH foaming soaps that strip essential sebum. Apply our mild lipid-cushioned cleanser with lukewarm water, gently massaging in upward circular motions for 45–60 seconds to dissolve pollution and sebum without tightness.',
         },
         {
-          heading: 'Шаг 02 / Тонизирование и баланс (Face Toner)',
+          heading: 'Step 02 / Balancing & Hydrating Face Toner',
           text: 'Immediately following cleansing — while the skin is still slightly damp — press 3–4 drops of Face Toner into your face and neck. Containing low-molecular hyaluronic acid and balancing botanical extracts, this step re-establishes optimal pH and primes the stratum corneum for maximum serum absorption.',
         },
         {
-          heading: 'Шаг 03 / Концентрированная сыворотка (Targeted Serum)',
+          heading: 'Step 03 / Concentrated Active Serum',
           text: 'Dispense 1 full pipette of active serum onto fingertips and press gently into areas prone to dryness, fine lines, or uneven texture. Whether formulated with soothing niacinamide, multi-peptides, or vitamin C, allow 60 seconds for complete cellular uptake before sealing.',
         },
         {
-          heading: 'Шаг 04 / Липидная защита (Ceramide Cream & Lotion)',
+          heading: 'Step 04 / Barrier Lipid Protection (Creams & Lotions)',
           text: 'Seal hydration with our Ceramide Barrier Cream for the face or Almond Silk Lotion for the body. The rich physiological lipid matrix (Ceramides NP, AP, EOP) creates a breathable, non-comedogenic moisture shield that locks in active nutrients for up to 24 hours.',
         },
         {
-          heading: 'Сезонный уход: Адаптация к климату Узбекистана',
+          heading: 'Seasonal Skincare: Climate Adaptation Guide',
           text: 'Central Asia experiences dry, continental winters and intense sunny summers. In winter months, boost nourishment with an extra layer of cream before bedtime to prevent indoor heating dehydration. In summer, pair your morning toner with lightweight serum and broad-spectrum SPF 50+ protection.',
         },
       ],
@@ -276,40 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'faqs';
   }
 
-  function renderNav(activeKey) {
-    const navWrap = h('nav', { class: 'info-nav-bar', 'aria-label': 'Support navigation' });
-    const groups = ['Support', 'Company', 'Legal'];
-
-    groups.forEach((groupName) => {
-      const groupEl = h('div', { class: 'info-nav-group' },
-        h('span', { class: 'info-nav-group-label' }, groupName),
-        h('div', { class: 'info-nav-pills' },
-          ...NAV_SECTIONS.filter((s) => s.group === groupName).map((s) => {
-            const btn = h('button', {
-              type: 'button',
-              class: 'info-nav-pill' + (s.id === activeKey ? ' is-active' : ''),
-              'aria-current': s.id === activeKey ? 'page' : 'false',
-            }, s.label);
-            btn.addEventListener('click', () => {
-              if (s.id !== activeKey) {
-                history.pushState(null, '', '?section=' + encodeURIComponent(s.id));
-                loadSection(s.id);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            });
-            return btn;
-          })
-        )
-      );
-      navWrap.append(groupEl);
-    });
-
-    return navWrap;
-  }
-
   let photoPreview = '';
   let photoName = '';
   let damageDesc = '';
+  let orderRef = '';
 
   function renderReturnFormUI(page) {
     const content = h('div', { class: 'info-content-wrap' });
@@ -317,17 +274,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderForm(submitted = false) {
       content.innerHTML = '';
       if (submitted) {
+        const claimId = 'RT-' + Math.random().toString(36).substring(2, 8).toUpperCase();
         content.innerHTML = `
           <div class="return-success-box">
-            <div class="return-success-badge">✓ Submitted</div>
+            <div class="return-success-badge">✓ Claim Submitted</div>
             <h2>Return Request Received</h2>
-            <p>Thank you. Your photo and damage report have been forwarded to our Client Care Concierge. We will contact you at your account email / phone within 24 hours with an immediate replacement or full refund confirmation.</p>
+            <p>Thank you. Your photo and report have been logged under reference <b>#${claimId}</b>. Our Client Care team will review it within 24 hours and arrange an immediate free replacement or full refund.</p>
             ${photoPreview ? `<img src="${photoPreview}" alt="Damaged product preview" class="return-preview-img">` : ''}
             <div class="return-desc-echo">
               <strong>Your description:</strong>
               <p id="return-desc-echo"></p>
             </div>
-            <button type="button" class="btn-pill btn-pill--black" id="return-another" style="max-width:240px;margin-top:12px;">Submit Another Claim</button>
+            ${orderRef ? `<p style="font-size:13px;color:#6b7280;margin-top:4px;"><b>Order Reference:</b> ${orderRef}</p>` : ''}
+            <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+              <button type="button" class="btn-pill btn-pill--black" id="return-another" style="max-width:220px;">Submit Another Claim</button>
+              <a href="index.html" class="btn-outline-pill" style="height:48px;padding:0 24px;border-radius:62px;font-size:14px;">Back to Home</a>
+            </div>
           </div>
         `;
         const echo = document.getElementById('return-desc-echo');
@@ -338,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             photoPreview = '';
             photoName = '';
             damageDesc = '';
+            orderRef = '';
             renderForm(false);
           });
         }
@@ -345,19 +308,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       content.innerHTML = `
+        <div class="return-guide-card">
+          <h3>How to submit a damaged item claim:</h3>
+          <ol class="return-guide-steps">
+            <li><b>1. Select Photo:</b> Upload a clear photo of the damaged product or leaking container.</li>
+            <li><b>2. Describe the Issue:</b> Specify whether the glass cracked, pump leaked, or wrong product arrived.</li>
+            <li><b>3. Send Request:</b> We review reports within 24 hours and send an instant replacement without needing you to return broken glass.</li>
+          </ol>
+        </div>
+
         <form class="return-form" id="return-form">
           <div class="return-field">
-            <label for="return-photo-input">Upload Photo of Damaged Product or Packaging *</label>
+            <label>Upload Photo of Damaged Item *</label>
             <div id="return-photo-area"></div>
             <input id="return-photo-input" type="file" accept="image/*" class="sr-only">
           </div>
           <div class="return-field">
             <label for="return-desc-input">Describe What Happened *</label>
-            <textarea id="return-desc-input" required placeholder="Please describe the damage, e.g. glass flacon cracked in transit, leaking pump dispenser, missing security seal..."></textarea>
+            <textarea id="return-desc-input" required placeholder="Please describe the damage, e.g. glass flacon cracked in transit, leaking pump dispenser, missing tamper seal..."></textarea>
           </div>
           <div class="return-field">
             <label for="return-order-input">Order Reference Number (Optional)</label>
-            <input id="return-order-input" type="text" placeholder="e.g. #7A9F12BC" style="height:48px;border:1px solid #d1d5db;border-radius:10px;padding:0 14px;font-size:15px;">
+            <input id="return-order-input" type="text" placeholder="e.g. #7A9F12BC" style="height:48px;border:1.5px solid #e5e7eb;border-radius:12px;padding:0 16px;font-size:15px;">
           </div>
           <button type="submit" class="btn-pill btn-pill--black" id="return-submit" disabled>Send Return Request</button>
         </form>
@@ -366,8 +338,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const photoArea = document.getElementById('return-photo-area');
       const photoInput = document.getElementById('return-photo-input');
       const descInput = document.getElementById('return-desc-input');
+      const orderInput = document.getElementById('return-order-input');
       const submitBtn = document.getElementById('return-submit');
+
       descInput.value = damageDesc;
+      if (orderInput) orderInput.value = orderRef;
 
       function syncSubmit() {
         submitBtn.disabled = !photoPreview || !damageDesc.trim();
@@ -380,7 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <img src="${photoPreview}" alt="Damaged item preview" class="return-preview-img">
               <div class="return-photo-meta">
                 <span id="return-file-label"></span>
-                <button type="button" id="remove-photo-btn">Remove photo</button>
+                <div style="display:flex;gap:10px;margin-top:4px;">
+                  <label for="return-photo-input" style="font-size:13px;color:#000;text-decoration:underline;cursor:pointer;">Change photo</label>
+                  <button type="button" id="remove-photo-btn">Remove</button>
+                </div>
               </div>
             </div>
           `;
@@ -400,8 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
               </svg>
-              <span>Click to select or drag photo here</span>
+              <span>Click to choose photo or drag &amp; drop</span>
               <small>PNG, JPG, WEBP (Max 10 MB)</small>
+              <span class="btn-pill btn-pill--black" style="max-width:160px;height:38px;font-size:13px;margin-top:8px;pointer-events:none;">Choose Photo</span>
             </label>
           `;
         }
@@ -430,10 +409,17 @@ document.addEventListener('DOMContentLoaded', () => {
         syncSubmit();
       });
 
+      if (orderInput) {
+        orderInput.addEventListener('input', () => {
+          orderRef = orderInput.value;
+        });
+      }
+
       document.getElementById('return-form').addEventListener('submit', (e) => {
         e.preventDefault();
         if (!photoPreview || !damageDesc.trim()) return;
         renderForm(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
 
@@ -458,9 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
       h('p', { class: 'info-lead' }, page.lead),
     );
 
-    const nav = renderNav(validKey);
-
-    root.append(backLink, nav, headBlock);
+    root.append(backLink, headBlock);
 
     if (page.isReturnForm) {
       root.append(renderReturnFormUI(page));

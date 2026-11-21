@@ -1113,58 +1113,31 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
 
 /* ── Dedicated Info & Start-a-Return Pages ──────────────────── */
 .info-page { width: min(880px, calc(100% - 48px)); margin: 40px auto 80px; }
-.info-nav-bar {
+.return-guide-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 22px 24px;
+  background: #f8f9fa;
+  margin-bottom: 24px;
+}
+.return-guide-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #111111;
+}
+.return-guide-steps {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background: #f8f9fa;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
-  padding: 16px 18px;
-  margin-bottom: 32px;
-}
-.info-nav-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.info-nav-group-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #9ca3af;
-  min-width: 68px;
-}
-.info-nav-pills {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  flex: 1;
-}
-.info-nav-pill {
-  padding: 6px 14px;
-  border-radius: 9999px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  font-size: 13px;
-  font-weight: 500;
+  gap: 8px;
+  padding-left: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.5;
   color: #4b5563;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
 }
-.info-nav-pill:hover {
+.return-guide-steps li b {
   color: #111111;
-  border-color: #9ca3af;
-  background: #f9fafb;
-}
-.info-nav-pill.is-active {
-  background: #000000;
-  border-color: #000000;
-  color: #ffffff;
-  font-weight: 600;
 }
 .info-head-block { margin-bottom: 28px; }
 .info-head-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
@@ -1221,10 +1194,7 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
 @media (max-width: 860px) {
   .info-page { width: calc(100% - 32px); margin: 24px auto 64px; }
   .info-page h1 { font-size: 28px; letter-spacing: -1px; }
-  .info-nav-bar { padding: 12px 14px; border-radius: 14px; gap: 10px; }
-  .info-nav-group { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .info-nav-pills { width: 100%; overflow-x: auto; padding-bottom: 4px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-  .return-form, .info-card, .return-success-box { padding: 20px 16px; border-radius: 14px; }
+  .return-form, .info-card, .return-success-box, .return-guide-card { padding: 20px 16px; border-radius: 14px; }
 }
 
 
@@ -1713,16 +1683,6 @@ textarea.field__input { height: 144px; padding: 13px 15px; resize: none; line-he
   .return-field textarea {
     min-height: 80px;
     font-size: 13px;
-  }
-  .info-nav-bar {
-    padding: 10px;
-  }
-  .info-nav-pills {
-    gap: 4px;
-  }
-  .info-nav-pill {
-    padding: 4px 10px;
-    font-size: 11px;
   }
 
   /* Footer on Watch */

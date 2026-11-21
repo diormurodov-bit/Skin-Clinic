@@ -588,7 +588,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       saveInputState();
       if (!isCheckoutReady()) {
         formError = 'Please complete all required contact, address, and payment fields.';
-        document.getElementById('checkout-error').innerHTML = `<div class="checkout-error">${formError}</div>`;
+        const errBox = document.getElementById('checkout-error');
+        if (errBox) {
+          errBox.innerHTML = `<div class="checkout-error">${formError}</div>`;
+          errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         syncSubmitButton();
         return;
       }
@@ -598,7 +602,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const chosenAddr = deliveryType === 'pickup' ? activePickup.address : address.trim();
 
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Processing order…'; }
-      errBox.innerHTML = '';
+      if (errBox) errBox.innerHTML = '';
 
       try {
         const res = await api.createOrder();
@@ -623,9 +627,13 @@ document.addEventListener('DOMContentLoaded', async () => {
               <a href="products.html" class="btn-outline-pill">Continue Shopping</a>
             </div>
           </div>`;
+        window.scrollTo({ top: 0, behavior: 'instant' });
       } catch (err) {
         formError = err.message || 'Failed to place order. Please try again.';
-        errBox.innerHTML = `<div class="checkout-error">${formError}</div>`;
+        if (errBox) {
+          errBox.innerHTML = `<div class="checkout-error">${formError}</div>`;
+          errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         if (submitBtn) {
           submitBtn.disabled = !isCheckoutReady();
           submitBtn.textContent = 'Place Order — ' + formatPrice(grandTotal);
